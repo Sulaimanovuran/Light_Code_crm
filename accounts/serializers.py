@@ -29,6 +29,7 @@ class RegisterMentorSerializer(serializers.Serializer):
         return attrs
 
     def create(self, validated_data):
+        validated_data['is_staff'] = True
         user = User.objects.create_user(**validated_data)
         Mentor.objects.create(user=user)
         return user

@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from .models import User, Score, Leed
+from .permissions import IsMentor
 from .serializers import *
 
 
@@ -76,12 +77,9 @@ class ScoreView(ModelViewSet):
 
 
 class LeedViewSet(ModelViewSet):
-    '''Лиды для менеджера'''
+    '''Лиды'''
     queryset = Leed.objects.all()
     serializer_class = LeedMentorSerializer
+    permission_classes = [IsMentor]
 
 
-class LeedListCreateAPIView(generics.ListCreateAPIView):
-    '''Для потенциальных студентов'''
-    queryset = Leed.objects.all()
-    serializer_class = LeedSerializer
